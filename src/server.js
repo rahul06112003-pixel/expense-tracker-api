@@ -44,6 +44,20 @@ app.use(limiter)
 
 
 
+app.get("/", (req, res) => {
+    res.status(200).json({
+        success: true,
+        message: "Expense Tracker API is running 🚀",
+    });
+});
+
+app.get("/health", (req, res) => {
+    res.status(200).json({
+        status: "UP",
+        timestamp: new Date().toISOString(),
+    });
+});
+
 
 
 
