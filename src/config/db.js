@@ -5,10 +5,11 @@ const config = require("./env")
 
 async function main() {
     try {
-       mongoose.connect(config.mongoUri)
+      await mongoose.connect(config.mongoUri)
        console.log("db connected")
     } catch (error) {
-        console.log(error)   
+        console.error(error)
+        process.exit(1)   
     }
    
 }
