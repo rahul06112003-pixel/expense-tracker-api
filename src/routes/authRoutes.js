@@ -2,7 +2,8 @@ const express = require("express")
 const authRouter = express.Router()
 const {registerValidator, loginValidator} = require("../validators/authValidator")
 const validate = require("../middleware/validationMiddleware")
-const {registerUser, loginUser} = require("../controller/authController")
+const {registerUser, loginUser, getCurrentUser, logoutUser} = require("../controller/authController")
+const auth = require("../middleware/authMiddleware")
 
 
 
@@ -45,6 +46,8 @@ const {registerUser, loginUser} = require("../controller/authController")
 
 authRouter.post('/register', registerValidator, validate, registerUser)
 authRouter.post('/login', loginValidator, validate, loginUser)
+authRouter.get('/me', auth, getCurrentUser)
+authRouter.post('/logout', logoutUser)
 
 
 

@@ -93,15 +93,25 @@ const readAllExpense = async (req, res, next) => {
       const skip = (page-1)*limit
 
 
+      const totalExpenses = await Expense.countDocuments(query);
+
+      const totalPages = Math.ceil(totalExpenses / limit);
+
       const expense = await Expense.find(query)
       .sort(sort)
       .skip(skip)
       .limit(limit)
       
 
-      res.status(200).json({
-        expense
-      })
+     res.status(200).json({
+       expense,
+       pagination: {
+       page,
+       limit,
+       totalExpenses,
+       totalPages
+      }
+     });
     } catch (error) {
         next(error)
     }

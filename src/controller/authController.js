@@ -73,6 +73,7 @@ const loginUser = async (req, res, next) => {
          httpOnly: true,
          secure: process.env.NODE_ENV === "production",
          sameSite: process.env.NODE_ENV === "production" ? "none" : "lax",
+         maxAge: 7 * 24 * 60 * 60 * 1000,
         });
 
         res.status(200).json({
@@ -84,4 +85,33 @@ const loginUser = async (req, res, next) => {
 }
 
 
-module.exports = {registerUser, loginUser}
+const getCurrentUser = async (req, res, next) => {
+  try {
+    const user = req.user;
+
+    res.status(200).json({
+      user: {
+        _id: user._id,
+        name: user.name,
+        emailId: user.emailId,
+      },
+    });
+  } catch (error) {
+    next(error);
+  }
+};
+
+
+const logoutUser = async (req, res, next) => {
+  try {
+    res.clearCookie("token");
+
+    res.status(200).json({
+      message: "Logout successfully",
+    });
+  } catch (error) {
+    next(error);
+  }
+};
+
+module.exports = {registerUser, loginUser, getCurrentUser, logoutUser}
