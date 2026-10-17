@@ -13,7 +13,8 @@ const limiter = require("./middleware/rateLimiter")
 const morgan = require("morgan")
 const swaggerUi = require("swagger-ui-express");
 const swaggerSpec = require("./config/swagger");
-
+const incomeRouter = require("./routes/incomeRoutes")
+const ipoRouter = require("./routes/ipoRoutes");
 
 
 
@@ -61,13 +62,15 @@ app.get("/health", (req, res) => {
 
 
 
-app.use('/auth', authRouter)
+app.use('/api/auth', authRouter)
 
-app.use('/expense', expenseRouter)
+app.use('/api/expense', expenseRouter)
 
-app.use('/report', reportRouter)
+app.use('/api/report', reportRouter)
 
+app.use('/api/income', incomeRouter)
 
+app.use("/api/ipos", ipoRouter)
 
 
 

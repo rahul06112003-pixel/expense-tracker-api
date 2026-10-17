@@ -52,7 +52,7 @@ const updateExpenseValidator = [
       .isLength({min: 3, max: 100})
       .withMessage("title must be between 3 and 100 character"),
 
-    body("ammount")
+    body("amount")
       .optional()
       .notEmpty()
       .withMessage("amount is required")
